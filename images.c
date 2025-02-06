@@ -15,10 +15,10 @@
 int	close_window(t_data *data)
 {
 	ft_free(data);
-	mlx_destroy_image(data->mlx, data->img.bg_floor_img);
-	mlx_destroy_image(data->mlx, data->img.bg_wall_img);
-	mlx_destroy_image(data->mlx, data->img.player_img);
-	mlx_destroy_image(data->mlx, data->img.pick_up_img);
+	mlx_destroy_image(data->mlx, data->img.bg_floor);
+	mlx_destroy_image(data->mlx, data->img.bg_wall);
+	mlx_destroy_image(data->mlx, data->img.player);
+	mlx_destroy_image(data->mlx, data->img.pick_up);
 	mlx_destroy_image(data->mlx, data->img.door_on);
 	mlx_destroy_image(data->mlx, data->img.door_off);
 	mlx_destroy_window(data->mlx, data->win);
@@ -27,24 +27,27 @@ int	close_window(t_data *data)
 	exit(0);
 }
 
+//checker si le ".xpm" est bien une image
+
 void	charge_img(t_data *data)
 {
 	int	w;
 	int	h;
 
-	data->img.bg_floor_img = mlx_xpm_file_to_image(data->mlx,
-			"./textures/parquet.xpm", &w, &h);
-	data->img.bg_wall_img = mlx_xpm_file_to_image(data->mlx,
-			"./textures/rock.xpm", &w, &h);
-	data->img.player_img = mlx_xpm_file_to_image(data->mlx,
-			"./textures/isaac.xpm", &w, &h);
-	data->img.pick_up_img = mlx_xpm_file_to_image(data->mlx,
-			"./textures/collectible.xpm", &w, &h);
+	data->img.bg_floor = mlx_xpm_file_to_image(data->mlx,
+		"./textures/parquet.xpm", &w, &h);
+	data->img.bg_wall = mlx_xpm_file_to_image(data->mlx,
+		"./textures/rock.xpm", &w, &h);
+	data->img.player = mlx_xpm_file_to_image(data->mlx,
+		"./textures/isaac.xpm", &w, &h);
+	data->img.pick_up = mlx_xpm_file_to_image(data->mlx,
+		 "./textures/collectible.xpm", &w, &h);
 	data->img.door_off = mlx_xpm_file_to_image(data->mlx,
-			"./textures/door_off.xpm", &w, &h);
+		"./textures/door_off.xpm", &w, &h);
 	data->img.door_on = mlx_xpm_file_to_image(data->mlx,
-			"./textures/door_on.xpm", &w, &h);
+		"./textures/door_on.xpm", &w, &h);
 }
+
 
 void	imaginer(t_data *data)
 {
@@ -68,16 +71,16 @@ void	add_image(t_data *data, int x, int y)
 {
 	if (data->map[x][y] == '0')
 		mlx_put_image_to_window(data->mlx,
-			data->win, data->img.bg_floor_img, y * TILE, x * TILE);
+			data->win, data->img.bg_floor, y * TILE, x * TILE);
 	if (data->map[x][y] == '1')
 		mlx_put_image_to_window(data->mlx,
-			data->win, data->img.bg_wall_img, y * TILE, x * TILE);
+			data->win, data->img.bg_wall, y * TILE, x * TILE);
 	if (data->map[x][y] == 'C')
 		mlx_put_image_to_window(data->mlx,
-			data->win, data->img.pick_up_img, y * TILE, x * TILE);
+			data->win, data->img.pick_up, y * TILE, x * TILE);
 	if (data->map[x][y] == 'P')
 		mlx_put_image_to_window(data->mlx,
-			data->win, data->img.player_img, y * TILE, x * TILE);
+			data->win, data->img.player, y * TILE, x * TILE);
 	if (data->map[x][y] == 'E')
 	{
 		mlx_put_image_to_window(data->mlx, data->win,

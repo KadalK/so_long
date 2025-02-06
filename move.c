@@ -12,18 +12,6 @@
 
 #include "so_long.h"
 
-void	d_key(int keycode, t_data *data)
-{
-	if ((keycode == XK_d || keycode == XK_Right)
-		&& data->map[data->pars.player_x][data->pars.player_y + 1] != '1'
-		&& (data->map[data->pars.player_x][data->pars.player_y + 1] != 'E'
-		|| check_sprite(data->map, 'C') == 0))
-	{
-		data->map[data->pars.player_x][data->pars.player_y] = '0';
-		data->map[data->pars.player_x][data->pars.player_y + 1] = 'P';
-	}
-}
-
 void	w_key(int keycode, t_data *data)
 {
 	if ((keycode == XK_w || keycode == XK_Up)
@@ -33,18 +21,10 @@ void	w_key(int keycode, t_data *data)
 	{
 		data->map[data->pars.player_x][data->pars.player_y] = '0';
 		data->map[data->pars.player_x - 1][data->pars.player_y] = 'P';
-	}
-}
-
-void	s_key(int keycode, t_data *data)
-{
-	if ((keycode == XK_s || keycode == XK_Down)
-		&& data->map[data->pars.player_x +1][data->pars.player_y] != '1'
-		&& (data->map[data->pars.player_x +1][data->pars.player_y] != 'E'
-		|| check_sprite(data->map, 'C') == 0))
-	{
-		data->map[data->pars.player_x][data->pars.player_y] = '0';
-		data->map[data->pars.player_x + 1][data->pars.player_y] = 'P';
+		data->pars.step++;
+		ft_putstr_fd("step : ", 1);
+		ft_putnbr_fd(data->pars.step, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
@@ -57,6 +37,42 @@ void	a_key(int keycode, t_data *data)
 	{
 		data->map[data->pars.player_x][data->pars.player_y] = '0';
 		data->map[data->pars.player_x][data->pars.player_y - 1] = 'P';
+		data->pars.step++;
+		ft_putstr_fd("step : ", 1);
+		ft_putnbr_fd(data->pars.step, 1);
+		ft_putchar_fd('\n', 1);
+	}
+}
+
+void	s_key(int keycode, t_data *data)
+{
+	if ((keycode == XK_s || keycode == XK_Down)
+		&& data->map[data->pars.player_x +1][data->pars.player_y] != '1'
+		&& (data->map[data->pars.player_x +1][data->pars.player_y] != 'E'
+		|| check_sprite(data->map, 'C') == 0))
+	{
+		data->map[data->pars.player_x][data->pars.player_y] = '0';
+		data->map[data->pars.player_x + 1][data->pars.player_y] = 'P';
+		data->pars.step++;
+		ft_putstr_fd("step : ", 1);
+		ft_putnbr_fd(data->pars.step, 1);
+		ft_putchar_fd('\n', 1);
+	}
+}
+
+void	d_key(int keycode, t_data *data)
+{
+	if ((keycode == XK_d || keycode == XK_Right)
+		&& data->map[data->pars.player_x][data->pars.player_y + 1] != '1'
+		&& (data->map[data->pars.player_x][data->pars.player_y + 1] != 'E'
+		|| check_sprite(data->map, 'C') == 0))
+	{
+		data->map[data->pars.player_x][data->pars.player_y] = '0';
+		data->map[data->pars.player_x][data->pars.player_y + 1] = 'P';
+		data->pars.step++;
+		ft_putstr_fd("step : ", 1);
+		ft_putnbr_fd(data->pars.step, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 

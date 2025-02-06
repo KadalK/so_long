@@ -6,7 +6,7 @@
 /*   By: kapinarc <kapinarc@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:54:42 by kapinarc          #+#    #+#             */
-/*   Updated: 2025/01/30 14:28:56 by kapinarc         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:52:35 by kapinarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	init(t_data *data)
 	data->win = NULL;
 	data->tmp = NULL;
 	data->join = NULL;
-	data->img.player_img = NULL;
-	data->img.bg_wall_img = NULL;
-	data->img.pick_up_img = NULL;
+	data->img.player = NULL;
+	data->img.bg_wall = NULL;
+	data->img.pick_up = NULL;
 	data->img.door_on = NULL;
 	data->img.door_off = NULL;
-	data->img.bg_floor_img = NULL;
+	data->img.bg_floor = NULL;
 	data->line = NULL;
 	data->map = NULL;
 	data->map_check = NULL;
@@ -40,7 +40,7 @@ int	is_rectangle(char **map)
 	{
 		if (ft_strlen(map[0]) != ft_strlen(map[y]))
 		{
-			ft_putstr_fd("Error\nThe map isn't a rectangle.\n", 1);
+			ft_putstr_fd("Error\nThe map isn't a rectangle.\n", 2);
 			return (1);
 		}
 		y++;
@@ -52,12 +52,11 @@ int	read_map(char *file, t_data *data)
 {
 	data->tmp = ft_strdup("");
 	data->fd = open(file, O_RDONLY);
-	printf("fd: %d\n", data->fd);
 	if (data->fd < 0)
 		return (close(data->fd), 1);
 	data->line = get_next_line(data->fd);
 	if (!data->line)
-		return (close(data->fd), 1);
+		return (free(data->tmp), close(data->fd), 1);
 	while (data->line)
 	{
 		data->join = ft_strjoin(data->tmp, data->line);
@@ -77,15 +76,25 @@ int	read_map(char *file, t_data *data)
 	return (0);
 }
 
-void	freeman(char **man)
+void	valid_char(char **map, t_data *data)
 {
 	int	x;
+	int	y;
 
 	x = 0;
-	while (man[x])
+	while (map[x])
 	{
-		free(man[x]);
+		y = 0;
+		while (map[x][y])
+		{
+			if (!check_char(map[x][y]))
+			{
+				ft_putstr_fd("Error\nInvalid charactere\n", 2);
+				ft_free(data);
+				exit(1);
+			}
+			y++;
+		}
 		x++;
 	}
-	free(man);
 }

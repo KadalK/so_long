@@ -10,7 +10,10 @@ SRC_FILES	=	main.c	\
 				images.c	\
 				move.c	\
 				checker.c	\
-				geter.c
+				checker_2.c	\
+				getter.c	\
+				flood_fill.c	\
+				free.c
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 
@@ -47,4 +50,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY:  all clean fclean re make
+.PHONY: all clean fclean re make
